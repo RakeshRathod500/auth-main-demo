@@ -1,0 +1,25 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
+    <div class="card-body">
+      <h2 class="card-title text-center mb-4">Two-Factor Authentication</h2>
+      <div *ngIf="!is2FASetup" class="text-center mb-4">
+        <p>Scan this QR code with Microsoft Authenticator:</p>
+        <img [src]="qrCode" alt="QR Code" class="img-fluid" style="max-width: 200px;" />
+      </div>
+      <div>
+        <label for="token" class="form-label">Enter 2FA Code</label>
+        <input
+          type="text"
+          id="token"
+          class="form-control mb-3"
+          [(ngModel)]="token"
+          placeholder="Enter 2FA Code"
+          required
+        />
+        <div class="d-grid">
+          <button type="button" class="btn btn-primary" (click)="verify()">Verify</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

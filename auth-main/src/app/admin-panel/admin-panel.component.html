@@ -1,0 +1,163 @@
+
+
+<div class="container mt-4">
+  
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="mb-0">Admin Panel</h2>
+    </div>
+    <div>
+      <!-- Show Add User button only for admin -->
+      <button *ngIf="userRole === 'admin'" class="btn btn-primary me-2" (click)="openAddModal()">Add User</button>
+      
+      <button class="btn btn-secondary" (click)="logout()">Log Out</button>
+    </div>
+  </div>
+
+  <!-- Users List -->
+  <div>
+   
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Sl.No</th>
+          <th>Username</th>
+          <th>Role</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; let i = index">
+          <td>{{ i + 1 }}</td> 
+          <td>{{ user.username }}</td>
+          <td>{{ user.role }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm" (click)="openEditModal(user)">Edit</button>
+          </td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Add User Modal -->
+  <div class="modal fade" [ngClass]="{'show d-block': showAddModal}" tabindex="-1" role="dialog" *ngIf="showAddModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add New User</h5>
+          <button type="button" class="btn-close" (click)="closeAddModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="new-username" class="form-label">Username</label>
+              <input
+                type="text"
+                id="new-username"
+                class="form-control"
+                [(ngModel)]="newUser.username"
+                name="username"
+                placeholder="Enter username"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="new-password" class="form-label">Password</label>
+              <input
+                type="password"
+                id="new-password"
+                class="form-control"
+                [(ngModel)]="newUser.password"
+                name="password"
+                placeholder="Enter password"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="new-role" class="form-label">Role</label>
+              <select
+                id="new-role"
+                class="form-select"
+                [(ngModel)]="newUser.role"
+                name="role"
+                required
+              >
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeAddModal()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="addUser()">Add User</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit User Modal -->
+  <div class="modal fade" [ngClass]="{'show d-block': showEditModal}" tabindex="-1" role="dialog" *ngIf="showEditModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit User</h5>
+         
+          <button type="button" class="btn-close" (click)="closeEditModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="edit-username" class="form-label">Username</label>
+              <input
+                type="text"
+                id="edit-username"
+                class="form-control"
+                [(ngModel)]="editUser.username"
+                name="username"
+                placeholder="Enter username"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="edit-password" class="form-label">Password</label>
+              <input
+                type="password"
+                id="edit-password"
+                class="form-control"
+                [(ngModel)]="editUser.password"
+                name="password"
+                placeholder="Enter password"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="edit-role" class="form-label">Role</label>
+              <select
+                id="edit-role"
+                class="form-select"
+                [(ngModel)]="editUser.role"
+                name="role"
+                required
+              >
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="updateUser()">Update User</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Backdrop -->
+  <div class="modal-backdrop fade show" *ngIf="showAddModal || showEditModal"></div>
+</div>
