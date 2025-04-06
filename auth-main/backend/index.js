@@ -9,7 +9,7 @@ const app = express();
 
 // Optional: Restrict CORS to your frontend server
 const corsOptions = {
-  origin: '44.223.30.17', // replace with actual IP/domain
+  origin: '54.144.228.198', // replace with actual IP/domain
   credentials: true,
 };
 app.use(cors(corsOptions));
